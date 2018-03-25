@@ -1,12 +1,17 @@
 library(readr)
 library(dplyr)
 
+
+# Data from IRS SOI page; downloaded in CSV
+
 irs2015 <- read_csv("C:/Users/Eric VonDohlen/Downloads/15zpallagi.csv")
 
 
+# Eliminate summarized data (will retyrn to it later)
+
 sample_for_test <- filter(irs2015, !zipcode=='00000') %>% select(zipcode, N1, agi_stub, A00100)
 
-
+# Create first field, average AGI (unweighted)
 
 agi_zip_bucket <- sample_for_test %>% group_by(zipcode, agi_stub) %>% mutate(avg_stub_agi=(A00100/N1))
 
