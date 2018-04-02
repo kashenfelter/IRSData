@@ -16,6 +16,14 @@ sample_for_test <- filter(irs2015, !zipcode=='00000') %>% select(zipcode, N1, ag
 agi_zip_bucket <- sample_for_test %>% group_by(zipcode, agi_stub) %>% mutate(avg_stub_agi=(A00100/N1))
 
 
+agidata$zip <- as.character(agidata$zipcode)
+for(i in 1:length(agidata$zip)){
+  if(as.numeric(agidata$zip[i]) < 10000){
+    agidata$zip[i] <- paste0("0", agidata$zip[i])
+  }
+}
+
+zip <- as.data.frame(zip)
 
 
 
